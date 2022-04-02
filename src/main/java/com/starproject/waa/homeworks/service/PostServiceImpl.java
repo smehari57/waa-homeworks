@@ -1,6 +1,7 @@
 package com.starproject.waa.homeworks.service;
 
 import com.starproject.waa.homeworks.domain.Post;
+import com.starproject.waa.homeworks.domain.User;
 import com.starproject.waa.homeworks.dto.PostDto;
 import com.starproject.waa.homeworks.helper.ListMapper;
 import com.starproject.waa.homeworks.repository.PostRepository;
@@ -53,4 +54,11 @@ public class PostServiceImpl implements PostService{
         posts.setAuthor(p.getAuthor());
 
     }
+
+    @Override
+    public List<PostDto> getAllPostsThatMatchsThisTitle(String title) {
+        return (List<PostDto>)listMapper.mapList(postRepository.getAllPostsThatMatchsThisTitle(title),new PostDto());
+    }
+
+
 }

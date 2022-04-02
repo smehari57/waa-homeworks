@@ -37,4 +37,8 @@ private final PostService postService;
     public void updatePost(@PathVariable("id") Long id, @RequestBody Post p){
         postService.updatePost(id, p);
     }
+    @GetMapping("/getPostsWhichMatchsThisTitle")
+    public List<PostDto> getPostsWhichMatchsThisTitle(String title){
+        return postService.getAllPostsThatMatchsThisTitle(title);
+    }
 }

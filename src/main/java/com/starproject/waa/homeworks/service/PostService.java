@@ -1,6 +1,7 @@
 package com.starproject.waa.homeworks.service;
 
 import com.starproject.waa.homeworks.domain.Post;
+import com.starproject.waa.homeworks.domain.User;
 import com.starproject.waa.homeworks.dto.PostDto;
 
 import java.util.List;
@@ -15,5 +16,7 @@ public interface PostService {
     public void deleteById(Long id);
 
     public void updatePost(Long id, Post p);
+
+    public List<PostDto> getAllPostsThatMatchsThisTitle(String title);
 
 }

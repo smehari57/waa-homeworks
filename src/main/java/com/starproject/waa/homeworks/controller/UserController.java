@@ -1,6 +1,9 @@
 package com.starproject.waa.homeworks.controller;
 
+import com.starproject.waa.homeworks.domain.Comment;
+import com.starproject.waa.homeworks.domain.Post;
 import com.starproject.waa.homeworks.domain.User;
+import com.starproject.waa.homeworks.dto.CommentDto;
 import com.starproject.waa.homeworks.dto.PostDto;
 import com.starproject.waa.homeworks.dto.UserDto;
 import com.starproject.waa.homeworks.service.UserService;
@@ -43,4 +46,41 @@ public class UserController {
     public void updateUser(@PathVariable("id") int id, @RequestBody User user){
         userService.updateUser(id, user);
     }
+    @GetMapping("/moreThanOnePosts")
+    public List<UserDto> getUsersWithMoreThanOnePosts(){
+        return userService.usersWithMoreThanOnePosts();
+    }
+
+    @GetMapping("/getPostsWhichMatchsThisTitle")
+    public List<PostDto> getPostsWhichMatchsThisTitle(String title){
+        return userService.getAllPostsThatMatchsThisTitle(title);
+    }
+
+    @GetMapping("/{uId}/posts/{pId}")
+    public List<PostDto> getUserPostsById(@PathVariable("uId")Integer uId,
+                                                          @PathVariable("pId")Long pId){
+
+        return userService.findPostsByPostId(uId, pId);
+    }
+
+    @GetMapping("/{userId}/posts/{postId}/comments")
+    public List<CommentDto> getCommentsById(@PathVariable("uId")Integer uId,
+                                                    @PathVariable("pId")Long pId){
+
+        return userService.findCommentsById(uId, pId);
+    }
+
+    @PostMapping("/{userId}/add-post")
+    public void savePost(@PathVariable("uId")Integer uId,
+                         @RequestBody Post p){
+        userService.savePost(uId, p);
+    }
+
+    @PostMapping("/{userId}/posts/{postId}/add-comment")
+    public void saveComment(@PathVariable("uId")Integer uId,
+                            @PathVariable("pId")Long pId,
+                            @RequestBody Comment c){
+        userService.saveComment(uId, pId, c);
+    }
+
 }

@@ -1,7 +1,9 @@
 package com.starproject.waa.homeworks.service;
 
+import com.starproject.waa.homeworks.domain.Comment;
 import com.starproject.waa.homeworks.domain.Post;
 import com.starproject.waa.homeworks.domain.User;
+import com.starproject.waa.homeworks.dto.CommentDto;
 import com.starproject.waa.homeworks.dto.PostDto;
 import com.starproject.waa.homeworks.dto.UserDto;
 import com.starproject.waa.homeworks.helper.ListMapper;
@@ -10,7 +12,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -18,14 +22,21 @@ public class UserServiceImpl implements UserService{
     ModelMapper modelMapper;
 
     @Autowired
+    private final PostService postService;
+
+    @Autowired
     ListMapper<User, UserDto> listMapper;
 
     @Autowired
     ListMapper<Post, PostDto> postListMapper;
 
+    @Autowired
+    ListMapper<Comment, CommentDto> commentListMapper;
+
     private final UserRepository userRepository;
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(PostService postService, UserRepository userRepository) {
+        this.postService = postService;
         this.userRepository = userRepository;
 
     }
@@ -62,4 +73,52 @@ public class UserServiceImpl implements UserService{
     public List<PostDto> findPostsById(int id) {
         return (List<PostDto>)postListMapper.mapList(userRepository.findById(id).get().getPosts(), new PostDto());
     }
+
+    @Override
+    public List<UserDto> usersWithMoreThanOnePosts() {
+        return  (List<UserDto>)listMapper.mapList(userRepository.usersWithMoreThanOnePosts(),new UserDto());
+    }
+
+    @Override
+    public List<PostDto> findPostsByPostId(Integer uId, Long pId) {
+        List<Post> posts = userRepository.findById(uId).orElse(null).getPosts()
+                .stream()
+                .filter(p -> p.getId() == pId)
+                .collect(Collectors.toList());
+        return (List<PostDto>)postListMapper.mapList(posts, new PostDto());
+    }
+
+    @Override
+    public List<CommentDto> findCommentsById(Integer userId, Long postId) {
+        List<Post> posts = userRepository.findById(userId).orElse(null).getPosts();
+        List<Comment> comments = posts.stream()
+                .filter(p -> p.getId() == postId)
+                .flatMap(p -> p.getComments().stream())
+                .collect(Collectors.toList());
+        return (List<CommentDto>)commentListMapper.mapList(comments, new CommentDto());
+    }
+
+    @Transactional
+    @Override
+    public void savePost(Integer userId, Post post) {
+        User user = userRepository.findById(userId).orElse(null);
+        user.getPosts().add(post);
+    }
+
+    @Transactional
+    @Override
+    public void saveComment(Integer userId, Long postId, Comment comment) {
+        User user = userRepository.findById(userId).orElse(null);
+        user.getPosts().stream()
+                .filter(p -> p.getId() == postId)
+                .findFirst().orElse(null)
+                .getComments().add(comment);
+    }
+
+    @Override
+    public List<PostDto> getAllPostsThatMatchsThisTitle(String title) {
+        return postService.getAllPostsThatMatchsThisTitle(title);
+    }
+
 }
+
