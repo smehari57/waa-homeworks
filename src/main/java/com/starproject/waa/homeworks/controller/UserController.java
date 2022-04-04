@@ -1,5 +1,6 @@
 package com.starproject.waa.homeworks.controller;
 
+import com.starproject.waa.homeworks.Aspect.ExecutionTme;
 import com.starproject.waa.homeworks.domain.Comment;
 import com.starproject.waa.homeworks.domain.Post;
 import com.starproject.waa.homeworks.domain.User;
@@ -21,13 +22,13 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
     @GetMapping
     public List<UserDto> findAll(){
         return userService.findAll();
     }
     @GetMapping("/{id}")
-    public UserDto findById(@PathVariable("id") int id){
+    @ExecutionTme
+    public UserDto getUserById(@PathVariable("id") int id){
         return userService.findById(id);
     }
     @GetMapping("/{id}/posts")
@@ -57,16 +58,12 @@ public class UserController {
     }
 
     @GetMapping("/{uId}/posts/{pId}")
-    public List<PostDto> getUserPostsById(@PathVariable("uId")Integer uId,
-                                                          @PathVariable("pId")Long pId){
-
+    public List<PostDto> getUserPostsById(@PathVariable("uId")Integer uId, @PathVariable("pId")Long pId){
         return userService.findPostsByPostId(uId, pId);
     }
 
     @GetMapping("/{userId}/posts/{postId}/comments")
-    public List<CommentDto> getCommentsById(@PathVariable("uId")Integer uId,
-                                                    @PathVariable("pId")Long pId){
-
+    public List<CommentDto> getCommentsById(@PathVariable("uId")Integer uId, @PathVariable("pId")Long pId){
         return userService.findCommentsById(uId, pId);
     }
 
