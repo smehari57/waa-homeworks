@@ -19,5 +19,5 @@ public class Logger {
     private LocalDate date;
     private LocalTime time;
     private String principle;
-    private String operation;
+    private String Operation;
 }

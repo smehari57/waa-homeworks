@@ -66,6 +66,7 @@ public class UserServiceImpl implements UserService{
     public void updateUser(int id, User u) {
         User user = userRepository.findById(id).orElse(null);
         user.setName(u.getName());
+        userRepository.save(user);
 
     }
 

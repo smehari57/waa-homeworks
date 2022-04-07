@@ -1,10 +1,8 @@
 package com.starproject.waa.homeworks.Aspect;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -30,5 +28,13 @@ public class ExecutionTimeAspect {
         end = System.currentTimeMillis();
         timeTaken = end - start;
         System.out.println("Time taken for " + joinPoint.getSignature().getName() + " is : " + timeTaken + " milliseconds");
+    }
+
+    @Around("timeAnnotaion()")
+    public void  aroundTimeExec(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        long start = System.currentTimeMillis();
+        proceedingJoinPoint.proceed();
+        long end = System.currentTimeMillis();
+        System.out.println("Time taken " + (end - start) + " milliseconds" );
     }
 }

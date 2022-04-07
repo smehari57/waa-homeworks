@@ -52,8 +52,8 @@ public class UserController {
         return userService.usersWithMoreThanOnePosts();
     }
 
-    @GetMapping("/getPostsWhichMatchsThisTitle")
-    public List<PostDto> getPostsWhichMatchsThisTitle(String title){
+    @GetMapping("/filter")
+    public List<PostDto> getPostsWhichMatchsThisTitle(@RequestParam("title") String title){
         return userService.getAllPostsThatMatchsThisTitle(title);
     }
 
