@@ -34,8 +34,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             log.info("Bad Credentials");
         }
 
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(loginRequest.getEmail());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getEmail());
 
         final String accessToken = jwtUtil.generateToken(userDetails);
         final String refreshToken = jwtUtil.generateRefreshToken(loginRequest.getEmail());
