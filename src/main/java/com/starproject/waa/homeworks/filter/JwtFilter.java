@@ -19,12 +19,12 @@ import java.io.IOException;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-    private final JwtUtil jwtHelper;
+    private final JwtUtil jwtUtil;
 
     private final UserDetailsService userDetailsService;
 
     public JwtFilter(JwtUtil jwtHelper, UserDetailsService userDetailsService) {
-        this.jwtHelper = jwtHelper;
+        this.jwtUtil = jwtHelper;
         this.userDetailsService = userDetailsService;
     }
 
@@ -40,7 +40,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             token = authorizationHeader.substring(7);
             try{
-                email = jwtHelper.getUsernameFromToken(token);
+                email = jwtUtil.getUsernameFromToken(token);
             }catch (ExpiredJwtException e){
                 String isRefreshToken = request.getHeader("isRefreshToken");
             }
@@ -49,7 +49,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             var userDetails = userDetailsService.loadUserByUsername(email);
-            boolean isTokenValid = jwtHelper.validateToken(token);
+            boolean isTokenValid = jwtUtil.validateToken(token);
             if (isTokenValid) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());

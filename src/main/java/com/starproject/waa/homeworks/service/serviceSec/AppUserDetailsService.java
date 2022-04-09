@@ -10,18 +10,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("userDetailsService")
 @Transactional
-public class AwesomeUserDetailsService implements UserDetailsService {
+public class AppUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    public AwesomeUserDetailsService(UserRepository userRepository) {
+    public AppUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = userRepository.findByEmail(username);
-        var userDetails = new AwesomeUserDetails(user);
+        var userDetails = new AppUserDetails(user);
         return userDetails;
     }
 

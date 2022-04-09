@@ -4,18 +4,18 @@ package com.starproject.waa.homeworks.controller.controllerSec;
 import com.starproject.waa.homeworks.domain.dto.request.LoginRequest;
 import com.starproject.waa.homeworks.domain.dto.request.RefreshTokenRequest;
 import com.starproject.waa.homeworks.domain.dto.response.LoginResponse;
-import com.starproject.waa.homeworks.service.serviceSec.AuthService;
+import com.starproject.waa.homeworks.service.serviceSec.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/authenticate")
 @CrossOrigin
-public class AuthController {
+public class AuthenticationController {
 
-    private final AuthService authService;
+    private final AuthenticationService authService;
 
-    public AuthController(AuthService authService) {
+    public AuthenticationController(AuthenticationService authService) {
         this.authService = authService;
     }
 

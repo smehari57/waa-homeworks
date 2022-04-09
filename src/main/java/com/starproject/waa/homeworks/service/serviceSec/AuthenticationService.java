@@ -5,7 +5,7 @@ import com.starproject.waa.homeworks.domain.dto.request.LoginRequest;
 import com.starproject.waa.homeworks.domain.dto.request.RefreshTokenRequest;
 import com.starproject.waa.homeworks.domain.dto.response.LoginResponse;
 
-public interface AuthService {
+public interface AuthenticationService {
     LoginResponse login(LoginRequest loginRequest);
     LoginResponse refreshToken(RefreshTokenRequest refreshTokenRequest);
 }
