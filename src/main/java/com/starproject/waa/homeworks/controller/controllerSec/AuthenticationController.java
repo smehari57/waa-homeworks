@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class AuthenticationController {
 
-    private final AuthenticationService authService;
+    private final AuthenticationService authenticationService;
 
     public AuthenticationController(AuthenticationService authService) {
-        this.authService = authService;
+        this.authenticationService = authService;
     }
 
     @PostMapping
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        var loginResponse = authService.login(loginRequest);
+        var loginResponse = authenticationService.login(loginRequest);
         return ResponseEntity.ok().body(loginResponse);
     }
 
     @PostMapping("/refreshToken")
     public LoginResponse refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest){
-        return authService.refreshToken(refreshTokenRequest);
+        return authenticationService.refreshToken(refreshTokenRequest);
     }
 
 }
