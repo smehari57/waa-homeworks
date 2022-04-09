@@ -4,9 +4,9 @@ import com.starproject.waa.homeworks.Aspect.ExecutionTme;
 import com.starproject.waa.homeworks.domain.Comment;
 import com.starproject.waa.homeworks.domain.Post;
 import com.starproject.waa.homeworks.domain.User;
-import com.starproject.waa.homeworks.dto.CommentDto;
-import com.starproject.waa.homeworks.dto.PostDto;
-import com.starproject.waa.homeworks.dto.UserDto;
+import com.starproject.waa.homeworks.domain.dto.CommentDto;
+import com.starproject.waa.homeworks.domain.dto.PostDto;
+import com.starproject.waa.homeworks.domain.dto.UserDto;
 import com.starproject.waa.homeworks.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -78,6 +78,11 @@ public class UserController {
                             @PathVariable("pId")Long pId,
                             @RequestBody Comment c){
         userService.saveComment(uId, pId, c);
+    }
+
+    @GetMapping("/admin")
+    public String getAdmin(){
+        return "Star the great!";
     }
 
 }

@@ -1,7 +1,7 @@
 package com.starproject.waa.homeworks.controller;
 
 import com.starproject.waa.homeworks.domain.Post;
-import com.starproject.waa.homeworks.dto.PostDto;
+import com.starproject.waa.homeworks.domain.dto.PostDto;
 import com.starproject.waa.homeworks.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

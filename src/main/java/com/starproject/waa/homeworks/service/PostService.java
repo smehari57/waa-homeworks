@@ -1,8 +1,7 @@
 package com.starproject.waa.homeworks.service;
 
 import com.starproject.waa.homeworks.domain.Post;
-import com.starproject.waa.homeworks.domain.User;
-import com.starproject.waa.homeworks.dto.PostDto;
+import com.starproject.waa.homeworks.domain.dto.PostDto;
 
 import java.util.List;
 

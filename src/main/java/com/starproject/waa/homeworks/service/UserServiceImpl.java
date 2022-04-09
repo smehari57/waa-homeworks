@@ -3,11 +3,11 @@ package com.starproject.waa.homeworks.service;
 import com.starproject.waa.homeworks.domain.Comment;
 import com.starproject.waa.homeworks.domain.Post;
 import com.starproject.waa.homeworks.domain.User;
-import com.starproject.waa.homeworks.dto.CommentDto;
-import com.starproject.waa.homeworks.dto.PostDto;
-import com.starproject.waa.homeworks.dto.UserDto;
-import com.starproject.waa.homeworks.helper.ListMapper;
+import com.starproject.waa.homeworks.domain.dto.CommentDto;
+import com.starproject.waa.homeworks.domain.dto.PostDto;
+import com.starproject.waa.homeworks.domain.dto.UserDto;
 import com.starproject.waa.homeworks.repository.UserRepository;
+import com.starproject.waa.homeworks.util.ListMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void updateUser(int id, User u) {
         User user = userRepository.findById(id).orElse(null);
-        user.setName(u.getName());
+        user.setFirstname(user.getFirstname());
 
     }
 

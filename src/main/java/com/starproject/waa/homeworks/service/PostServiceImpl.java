@@ -1,10 +1,9 @@
 package com.starproject.waa.homeworks.service;
 
 import com.starproject.waa.homeworks.domain.Post;
-import com.starproject.waa.homeworks.domain.User;
-import com.starproject.waa.homeworks.dto.PostDto;
-import com.starproject.waa.homeworks.helper.ListMapper;
+import com.starproject.waa.homeworks.domain.dto.PostDto;
 import com.starproject.waa.homeworks.repository.PostRepository;
+import com.starproject.waa.homeworks.util.ListMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

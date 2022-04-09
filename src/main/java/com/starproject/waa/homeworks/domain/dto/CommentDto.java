@@ -1,4 +1,4 @@
-package com.starproject.waa.homeworks.dto;
+package com.starproject.waa.homeworks.domain.dto;
 
 import lombok.Data;
 

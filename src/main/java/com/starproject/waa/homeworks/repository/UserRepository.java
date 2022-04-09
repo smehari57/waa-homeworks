@@ -10,6 +10,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     public List<User> findAll();
 
+    User findByEmail(String email);
+
     @Query(value = "SELECT u FROM User u WHERE u.posts.size > 1")
     public  List<User> usersWithMoreThanOnePosts();
 
